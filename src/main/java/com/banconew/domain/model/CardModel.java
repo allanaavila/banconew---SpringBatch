@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 @Slf4j
 @Entity

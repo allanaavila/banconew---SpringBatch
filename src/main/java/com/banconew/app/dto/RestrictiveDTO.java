@@ -19,5 +19,5 @@ public class RestrictiveDTO {
     // Referência simplificada ao cliente para o enriquecimento
     private Long customerId;
     private String customerDocument;
-    private LocalDate occurenceDate;
+    private LocalDate occurrenceDate;
 }
