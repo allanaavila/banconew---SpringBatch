@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Builder
@@ -14,8 +15,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CardContractDTO {
     private String contractId;
-    private Long customerId;
-    private String cardNumber;
+    private String customerId;
     private StatusModel status;
     private LocalDateTime updateTime;
+
+    private List<CardDTO> cards;
 }

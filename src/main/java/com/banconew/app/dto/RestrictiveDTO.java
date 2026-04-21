@@ -12,12 +12,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RestrictiveDTO {
-    private Long id;
-    private String type;
-    private String description;
-
-    // Referência simplificada ao cliente para o enriquecimento
-    private Long customerId;
-    private String customerDocument;
+    private String id;
+    private String name;
+    private String documentNumber;
+    private String email;
+    private String phoneNumber;
+    private String debtType;
+    private String fraudType;
     private LocalDate occurrenceDate;
+    private Long statusId;
+    private String customerId;
 }

@@ -19,16 +19,22 @@ import java.time.LocalDate;
 public class RestrictiveModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    private String type;
-
-    private String description;
+    private String name;
+    private String documentNumber;
+    private String email;
+    private String phoneNumber;
+    private String debtType;
+    private String fraudType;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private CustomerModel customer;
 
     private LocalDate occurrenceDate;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private StatusDescriptionModel status;
 }

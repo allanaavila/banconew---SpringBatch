@@ -5,16 +5,12 @@ import com.banconew.domain.model.RestrictiveModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {CustomerModelMapper.class})
+@Mapper(componentModel = "spring")
 public interface RestrictiveModelMapper {
 
-    @Mapping(target = "customerId", source = "customer.id")
-    @Mapping(target = "customerDocument", source = "customer.documentNumber")
-    @Mapping(target = "occurrenceDate", source = "occurrenceDate")
+    @Mapping(source = "customer.id", target = "customerId")
     RestrictiveDTO toDTO(RestrictiveModel model);
 
-    @Mapping(target = "customer.id", source = "customerId")
-    @Mapping(target = "customer.documentNumber", source = "customerDocument")
-    @Mapping(target = "occurrenceDate", source = "occurrenceDate")
+    @Mapping(target = "customer", ignore = true)
     RestrictiveModel toModel(RestrictiveDTO dto);
 }

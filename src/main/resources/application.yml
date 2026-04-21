@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/banconew
+    username: postgres
+    password: "282308"
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update # Cria as tabelas automaticamente com base nas suas Models
+    show-sql: true   # Util para debug local
+    properties:
+      hibernate:
+        format_sql: true
+
+  # Configurações específicas para o Spring Batch local
+  batch:
+    jdbc:
+      initialize-schema: always # Cria as tabelas do Spring Batch se não existirem
+    job:
+      enabled: false # Impede que o Job comece a rodar sozinho no startup
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic:
+      request: banconew-request-enriquecimento
+    consumer:
+      group-id: banconew-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    properties:
+      spring.json.trusted.packages: "com.banconew.app.dto"
+      spring.json.use.type.headers: false
+
+app:
+  batch:
+    chunk-size: 10

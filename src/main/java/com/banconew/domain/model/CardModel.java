@@ -1,15 +1,13 @@
 package com.banconew.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import jakarta.persistence.Id;
+
+import java.math.BigDecimal;
 
 @Slf4j
 @Entity
@@ -25,7 +23,13 @@ public class CardModel {
 
     private String brand;
 
-    @OneToOne
+    private BigDecimal cardLimit;
+
+    private BigDecimal cardBalance;
+
+    private String cardStatus;
+
+    @ManyToOne
     @JoinColumn(name = "contract_id")
     private CardContractModel contract;
 }

@@ -2,17 +2,19 @@ package com.banconew.infra.mappers;
 
 import com.banconew.app.dto.CardContractDTO;
 import com.banconew.domain.model.CardContractModel;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring", uses = {CustomerModelMapper.class, CardModelMapper.class})
+@Mapper(componentModel = "spring")
 public interface CardContractModelMapper {
 
-    @Mapping(target = "customerId", source = "customer.id")
-    @Mapping(target = "cardNumber", source = "card.cardNumber")
-    CardContractDTO toDTO(CardContractModel model);
-
-    @Mapping(target = "customer.id", source = "customerId")
-    @Mapping(target = "contractId", source = "contractId")
     CardContractModel toModel(CardContractDTO dto);
+
+    @AfterMapping
+    default void linkCards(@MappingTarget CardContractModel contract) {
+        if (contract.getCards() != null) {
+            contract.getCards().forEach(card -> card.setContract(contract));
+        }
+    }
 }

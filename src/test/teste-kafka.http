@@ -1,0 +1,11 @@
+### Enviar mensagem para o tópico de recebimento
+KAFKA localhost:9092 banconew-receber-dados
+Content-Type: application/json
+
+{
+  "contractId": "CONTRATO-ALLANA-001",
+  "customerId": 1,
+  "cardNumber": "1111.2222.3333.4444",
+  "status": "ACTIVED",
+  "updateTime": "2026-03-21T16:00:00"
+}

@@ -19,12 +19,7 @@ import java.util.List;
 public class CustomerModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true)
-    private String documentNumber;
-
+    private String id;
     private String name;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)

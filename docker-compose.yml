@@ -1,0 +1,50 @@
+
+services:
+  # ===============================================================================
+  # POSTGRES SERVER
+  # ===============================================================================
+  postgres:
+    image: postgres:15
+    container_name: banconew-db
+    environment:
+      POSTGRES_DB: banconew
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "282308"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.data/postgres:/var/lib/postgresql/data
+    networks:
+      - banconew-network
+
+  # ===============================================================================
+  # KAFKA (BITNAMI)
+  # ===============================================================================
+  kafka:
+    image: apache/kafka:3.7.0
+    container_name: banconew-kafka
+    ports:
+      - "9092:9092"
+    environment:
+      # Configurações para rodar local sem Zookeeper (KRaft)
+      - KAFKA_NODE_ID=1
+      - KAFKA_PROCESS_ROLES=broker,controller
+      - KAFKA_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=1@banconew-kafka:9093
+      - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+    networks:
+      - banconew-network
+
+# ===============================================================================
+# REDE E VOLUMES
+# ===============================================================================
+networks:
+  banconew-network:
+    driver: bridge
+
+volumes:
+  kafka_data:
+    driver: local

@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.annotation.Id;
+
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Entity
@@ -18,7 +19,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class CardContractModel {
-
     @Id
     private String contractId;
 
@@ -26,11 +26,9 @@ public class CardContractModel {
     @JoinColumn(name = "customer_id")
     private CustomerModel customer;
 
-    @OneToOne(mappedBy = "contract", cascade = CascadeType.ALL)
-    private CardModel card;
-
-    @Enumerated(EnumType.STRING)
-    private StatusModel status;
-
+    private String status;
     private LocalDateTime updateTime;
+
+    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
+    private List<CardModel> cards;
 }

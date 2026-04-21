@@ -8,9 +8,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CardModelMapper {
 
-    @Mapping(target = "contractId", source = "contract.contractId")
     CardDTO toDTO(CardModel model);
 
-    @Mapping(target = "contract.contractId", source = "contractId")
+    @Mapping(target = "contract", ignore = true)
     CardModel toModel(CardDTO dto);
 }
